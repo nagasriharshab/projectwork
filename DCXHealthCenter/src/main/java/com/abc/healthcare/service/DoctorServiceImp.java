@@ -14,17 +14,21 @@ import com.abc.healthcare.model.Doctor;
 import com.abc.healthcare.repository.DoctorRepository;
 
 /**
- * DoctorServiceImp class implementing DoctorService Interface
- * @author Team 1
- *
+ * 
+ * @author NAGA SRI HARSHA
+ *date : 05-July-2021
  */
 @Service
 public class DoctorServiceImp implements DoctorService{
-
+	
 	@Autowired
 	private DoctorRepository doctorRepository;
 	private static final Logger LOGGER = LoggerFactory.getLogger(DoctorServiceImp.class);
-
+	
+	/**
+	 * implements saveDoctor from DoctorService interface
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void saveDoctor(Doctor doctor) throws ResourceAlreadyExistException {
 		LOGGER.info("doctorRepository::findById(int id)method called");
@@ -42,6 +46,11 @@ public class DoctorServiceImp implements DoctorService{
 		}
 		LOGGER.info("Exiting from DoctorServiceImp::saveDoctor(Doctor doctor)method");
 	}
+	
+	/**
+	 * implements findDoctorbyId from DoctorService Interface
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Doctor findDoctorbyId(int id) throws ResourceNotFoundException{
 
@@ -58,6 +67,11 @@ public class DoctorServiceImp implements DoctorService{
 			throw new ResourceNotFoundException("Cannot find doctor with this ID"+id);
 		}
 	}
+	
+	/**
+	 * implements deleteDoctorbyId from DoctorService interface
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteDoctorbyId(int id)throws ResourceNotFoundException{
 		LOGGER.info("FindById method called from DoctorServiceImp::deleteDoctorbyId method");
@@ -73,6 +87,10 @@ public class DoctorServiceImp implements DoctorService{
 		LOGGER.info("Exiting from DoctorServiceImp::deleteDoctorbyId(int id)method");
 	}
 	
+	/**
+	 * implements findDoctorbyName from DoctorService interface
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Doctor findDoctorbyName(String name) throws ResourceNotFoundException{
 		LOGGER.info("FindByName method called from DoctorServiceImp::findDoctorbyName method");
@@ -88,6 +106,11 @@ public class DoctorServiceImp implements DoctorService{
 		}
 
 	}
+	
+	/**
+	 * implements updateDoctorbyId from DoctorService interface
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateDoctorbyId(Doctor doctor) throws ResourceNotFoundException {
 		
@@ -97,7 +120,7 @@ public class DoctorServiceImp implements DoctorService{
 			LOGGER.error("ResourceNotFoundException encountered with id "+doctor.getDoctorID());
 			throw new ResourceNotFoundException("Cannot find doctor with this Id"+doctor.getDoctorID());
 		}
-		else 
+		else
 		{
 			doctorEntity.setDoctorID(doctor.getDoctorID());
 			doctorEntity.setDoctorName(doctor.getDoctorName());
@@ -115,6 +138,12 @@ public class DoctorServiceImp implements DoctorService{
 		}
 		LOGGER.info("Exiting from DoctorServiceImp::updateDoctorbyId(Doctor doctor)method ");
 	}
+	
+	/**
+	 * converts Doctor into doctorEntity
+	 * @param doctor
+	 * @return doctorEntity
+	 */
 	private DoctorEntity convertModeltoEntity(Doctor doctor) {
 		DoctorEntity doctorEntity = new DoctorEntity();
 		doctorEntity.setDoctorID(doctor.getDoctorID());
@@ -130,6 +159,12 @@ public class DoctorServiceImp implements DoctorService{
 		doctorEntity.setDoctorPassword(doctor.getDoctorPassword());
 		return doctorEntity;
 	}
+	
+	/**
+	 * converts doctorEntity into model
+	 * @param doctorEntity
+	 * @return
+	 */
 	private Doctor convertEntitytoModel(Optional<DoctorEntity> doctorEntity) {
 		Doctor doctor = new Doctor();
 		doctor.setDoctorID(doctorEntity.get().getDoctorID());

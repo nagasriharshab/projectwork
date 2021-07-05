@@ -5,8 +5,9 @@ import com.abc.healthcare.model.Doctor;
 
 
 /**
+ * 
  * @author NAGA SRI HARSHA
- *
+ *date : 05-July-2021
  */
 public interface DoctorService {
  /**
@@ -17,14 +18,14 @@ public interface DoctorService {
  public void saveDoctor(Doctor doctor) throws ResourceAlreadyExistException;
  /**
   * 
-  * @param id
+  * @param DoctorId
   * @return required Doctor Details
   * @throws ResourceNotFoundException
   */
  public Doctor findDoctorbyId(int id) throws ResourceNotFoundException;
  /**
   * 
-  * @param id
+  * @param DoctorId
   * @throws ResourceNotFoundException
   */
  public void deleteDoctorbyId(int id)throws ResourceNotFoundException;

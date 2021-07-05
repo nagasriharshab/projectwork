@@ -21,6 +21,10 @@ import com.abc.healthcare.model.Doctor;
 import com.abc.healthcare.model.Response;
 import com.abc.healthcare.service.DoctorService;
 
+/**
+ * @author NAGA SRI HARSHA
+ *date : 05-July-2021
+ */
 @RestController
 @Validated
 @RequestMapping("/doctor")
@@ -32,7 +36,12 @@ public class DoctorController {
 	private DoctorService doctorService;
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
-    
+   
+	/**
+	 * Method to add doctor details
+	 * @param doctor
+	 * @return response entity containing the reply to request made and the status
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> addDoctor(@Valid @RequestBody Doctor doctor){
 		LOGGER.info("doctorServiceImp::saveDoctor(Doctor doctor) method called");
@@ -42,12 +51,23 @@ public class DoctorController {
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Method to find the Doctor based on DoctorId
+	 * @param id
+	 * @return response entity containing the reply to request made and the status
+	 */
 	@PostMapping("/find/{id}")
 	public ResponseEntity<?> findDoctor(@Valid @Min(1) @PathVariable int id){
 		LOGGER.info("doctorServiceImp::findDoctor(Doctor doctor) method called");
 		Doctor doctor = doctorService.findDoctorbyId(id);
 		return new ResponseEntity<>(doctor,HttpStatus.FOUND);
 	}
+	
+	/**
+	 * Method to delete the doctor based on DoctorId
+	 * @param id
+	 * @return response entity containing the reply to request made and the status
+	 */
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteDoctor(@Valid @Min(1) @PathVariable int id){
 		doctorService.deleteDoctorbyId(id);
@@ -55,11 +75,21 @@ public class DoctorController {
 		response.setStatus(HttpStatus.FOUND.value());
 		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
+	/**
+	 * Method to find the doctor by doctorName
+	 * @param name
+	 * @return response entity containing the reply to request made and the status
+	 */
 	@PostMapping("/findbyName/{name}")
 	public ResponseEntity<?> findDoctorbyNameMethod(@Valid @PathVariable String name){
 		Doctor doctor = doctorService.findDoctorbyName(name);
 		return new ResponseEntity<>(doctor,HttpStatus.FOUND);
 	}
+	/**
+	 * Method to update existing doctor details
+	 * @param doctor
+	 * @return response entity containing the reply to request made and the status
+	 */
 	@PutMapping("/update")
 	public ResponseEntity<?> updateDoctor(@Valid @RequestBody Doctor doctor){
 		doctorService.updateDoctorbyId(doctor);
