@@ -44,6 +44,7 @@ public class DoctorController {
 	
 	@PostMapping("/find/{id}")
 	public ResponseEntity<?> findDoctor(@Valid @Min(1) @PathVariable int id){
+		LOGGER.info("doctorServiceImp::findDoctor(Doctor doctor) method called");
 		Doctor doctor = doctorService.findDoctorbyId(id);
 		return new ResponseEntity<>(doctor,HttpStatus.FOUND);
 	}

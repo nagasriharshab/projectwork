@@ -5,9 +5,9 @@ public class Bill {
 
 	private double billAmount;
 	
-	private Appointment appointment;
+	private int appointmentId;
 	
-	private Payment payment;
+	private int paymentId;
 
 	public int getBillId() {
 		return billId;
@@ -25,19 +25,21 @@ public class Bill {
 		this.billAmount = billAmount;
 	}
 
-	public Appointment getAppointment() {
-		return appointment;
+	public int getAppointmentId() {
+		return appointmentId;
 	}
 
-	public void setAppointment(Appointment appointment) {
-		this.appointment = appointment;
+	public void setAppointmentId(int appointmentId) {
+		this.appointmentId = appointmentId;
 	}
 
-	public Payment getPayment() {
-		return payment;
+	public int getPaymentId() {
+		return paymentId;
 	}
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
 	}
+
+	
 }

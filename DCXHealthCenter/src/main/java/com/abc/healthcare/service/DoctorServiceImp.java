@@ -15,7 +15,7 @@ import com.abc.healthcare.repository.DoctorRepository;
 
 /**
  * DoctorServiceImp class implementing DoctorService Interface
- * @author NAGA SRI HARSHA
+ * @author Team 1
  *
  */
 @Service
@@ -35,19 +35,7 @@ public class DoctorServiceImp implements DoctorService{
 			throw new ResourceAlreadyExistException("Doctor already exists with this ID"+doctor.getDoctorID());
 		}
 		else {
-			DoctorEntity doctorEntity = new DoctorEntity();
-			doctorEntity.setDoctorID(doctor.getDoctorID());
-			doctorEntity.setDoctorName(doctor.getDoctorName());
-			doctorEntity.setDoctorContact(doctor.getDoctorContact());
-			doctorEntity.setDoctorDepartment(doctor.getDoctorDepartment());
-			doctorEntity.setDoctorEmail(doctor.getDoctorEmail());
-			doctorEntity.setDoctorExperience(doctor.getDoctorExperience());
-			doctorEntity.setDoctorGender(doctor.getDoctorGender());
-			doctorEntity.setDoctorQualification(doctor.getDoctorQualification());
-			doctorEntity.setDoctorAddress(doctor.getDoctorAddress());
-			doctorEntity.setDoctorUserName(doctor.getDoctorUserName());
-			doctorEntity.setDoctorPassword(doctor.getDoctorPassword());
-			doctorEntity.setAppointments(null);
+			DoctorEntity doctorEntity = convertModeltoEntity(doctor);
 			doctorRepository.save(doctorEntity);
 			LOGGER.info("doctor details saved in repository");
 			
@@ -56,21 +44,11 @@ public class DoctorServiceImp implements DoctorService{
 	}
 	@Override
 	public Doctor findDoctorbyId(int id) throws ResourceNotFoundException{
-		Doctor doctor = new Doctor();
+
 		LOGGER.info("doctorRepository::findById method called from DoctorService::findDoctorbyId");
 		Optional<DoctorEntity> doctorEntity = doctorRepository.findById(id);
 		if(doctorEntity.isPresent()) {
-			doctor.setDoctorID(doctorEntity.get().getDoctorID());
-			doctor.setDoctorName(doctorEntity.get().getDoctorName());
-			doctor.setDoctorEmail(doctorEntity.get().getDoctorEmail());
-			doctor.setDoctorContact(doctorEntity.get().getDoctorContact());
-			doctor.setDoctorDepartment(doctorEntity.get().getDoctorDepartment());
-			doctor.setDoctorExperience(doctorEntity.get().getDoctorExperience());
-			doctor.setDoctorGender(doctorEntity.get().getDoctorGender());
-			doctor.setDoctorQualification(doctorEntity.get().getDoctorQualification());
-			doctor.setDoctorAddress(doctorEntity.get().getDoctorAddress());
-			doctor.setDoctorUserName(doctorEntity.get().getDoctorUserName());
-			doctor.setDoctorPassword(doctorEntity.get().getDoctorPassword());
+			Doctor doctor = convertEntitytoModel(doctorEntity);
 			
 			LOGGER.info("returned doctor object to DoctorController::findDoctor(int id)method");
 			return doctor;
@@ -97,21 +75,10 @@ public class DoctorServiceImp implements DoctorService{
 	
 	@Override
 	public Doctor findDoctorbyName(String name) throws ResourceNotFoundException{
-		Doctor doctor = new Doctor();
 		LOGGER.info("FindByName method called from DoctorServiceImp::findDoctorbyName method");
 		Optional<DoctorEntity> doctorEntity = doctorRepository.findByDoctorName(name);
 		if(doctorEntity.isPresent()) {
-			doctor.setDoctorID(doctorEntity.get().getDoctorID());
-			doctor.setDoctorName(doctorEntity.get().getDoctorName());
-			doctor.setDoctorEmail(doctorEntity.get().getDoctorEmail());
-			doctor.setDoctorContact(doctorEntity.get().getDoctorContact());
-			doctor.setDoctorDepartment(doctorEntity.get().getDoctorDepartment());
-			doctor.setDoctorExperience(doctorEntity.get().getDoctorExperience());
-			doctor.setDoctorGender(doctorEntity.get().getDoctorGender());
-			doctor.setDoctorQualification(doctorEntity.get().getDoctorQualification());
-			doctor.setDoctorAddress(doctorEntity.get().getDoctorAddress());
-			doctor.setDoctorUserName(doctorEntity.get().getDoctorUserName());
-			doctor.setDoctorPassword(doctorEntity.get().getDoctorPassword());
+			Doctor doctor = convertEntitytoModel(doctorEntity);
 			LOGGER.info("Requested Doctor is created and returned");
 			return doctor;
 		}
@@ -147,6 +114,36 @@ public class DoctorServiceImp implements DoctorService{
 			LOGGER.info("Doctor Details are updated");
 		}
 		LOGGER.info("Exiting from DoctorServiceImp::updateDoctorbyId(Doctor doctor)method ");
+	}
+	private DoctorEntity convertModeltoEntity(Doctor doctor) {
+		DoctorEntity doctorEntity = new DoctorEntity();
+		doctorEntity.setDoctorID(doctor.getDoctorID());
+		doctorEntity.setDoctorName(doctor.getDoctorName());
+		doctorEntity.setDoctorContact(doctor.getDoctorContact());
+		doctorEntity.setDoctorDepartment(doctor.getDoctorDepartment());
+		doctorEntity.setDoctorEmail(doctor.getDoctorEmail());
+		doctorEntity.setDoctorExperience(doctor.getDoctorExperience());
+		doctorEntity.setDoctorGender(doctor.getDoctorGender());
+		doctorEntity.setDoctorQualification(doctor.getDoctorQualification());
+		doctorEntity.setDoctorAddress(doctor.getDoctorAddress());
+		doctorEntity.setDoctorUserName(doctor.getDoctorUserName());
+		doctorEntity.setDoctorPassword(doctor.getDoctorPassword());
+		return doctorEntity;
+	}
+	private Doctor convertEntitytoModel(Optional<DoctorEntity> doctorEntity) {
+		Doctor doctor = new Doctor();
+		doctor.setDoctorID(doctorEntity.get().getDoctorID());
+		doctor.setDoctorName(doctorEntity.get().getDoctorName());
+		doctor.setDoctorEmail(doctorEntity.get().getDoctorEmail());
+		doctor.setDoctorContact(doctorEntity.get().getDoctorContact());
+		doctor.setDoctorDepartment(doctorEntity.get().getDoctorDepartment());
+		doctor.setDoctorExperience(doctorEntity.get().getDoctorExperience());
+		doctor.setDoctorGender(doctorEntity.get().getDoctorGender());
+		doctor.setDoctorQualification(doctorEntity.get().getDoctorQualification());
+		doctor.setDoctorAddress(doctorEntity.get().getDoctorAddress());
+		doctor.setDoctorUserName(doctorEntity.get().getDoctorUserName());
+		doctor.setDoctorPassword(doctorEntity.get().getDoctorPassword());
+		return doctor;
 	}
 }
 	
