@@ -1,7 +1,5 @@
 package com.abc.healthcare.model;
 
-import java.util.List;
-
 public class Admin {
 	
 	private int adminId;

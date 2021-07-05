@@ -1,10 +1,10 @@
 package com.abc.healthcare.model;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class Doctor {
 	
-	@NotNull(message = "please provide id")
 	private int doctorID;
 
 	@NotEmpty(message="please provide doctorname")
@@ -17,6 +17,7 @@ public class Doctor {
 	private String doctorPassword;
 
 	@NotEmpty(message="please provide email")
+	@Email(message="email should be valid")
 	private  String doctorEmail;
 
 	@NotNull(message="please provide contact")
